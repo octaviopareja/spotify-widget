@@ -1,35 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 
 const spotify = require("../../../assets/spotify.jpg");
 
-const info = [
-  {
-    id: "1",
-    title: "First Item",
-    artist: "Bellah",
-    time: "2:55",
-  },
-  {
-    id: "2",
-    title: "Second Item",
-    artist: "Bellah",
-    time: "2:55",
-  },
-  {
-    id: "3",
-    title: "Third Item",
-    artist: "Bellah",
-    time: "2:55",
-  },
-  {
-    id: "4",
-    title: "Third Item",
-    artist: "Bellah",
-    time: "2:55",
-  },
-];
+
 
 const Item = ({ source, title, artist, time }) => (
   <View style={styles.itemPlaylist}>
@@ -55,7 +30,38 @@ const renderItem = ({ item }) => (
   <Item title={item.title} artist={item.artist} time={item.time} />
 );
 
-export default function Playlist() {
+export default function Playlist( {userData, userPlaylists}) {
+
+  const [info, setInfo] = useState([])
+// [
+//   {
+//     id: "1",
+//     title: "First Item",
+//     artist: "Bellah",
+//     time: "2:55",
+//   },{
+//     id: "2",
+//     title: "Second Item",
+//     artist: "Bellah",
+//     time: "2:55",
+//   },{
+//     id: "3",
+//     title: "Third Item",
+//     artist: "Bellah",
+//     time: "2:55",
+//   },{
+//     id: "4",
+//     title: "Third Item",
+//     artist: "Bellah",
+//     time: "2:55",
+//   },
+// ];
+useEffect(() => {
+  setInfo()
+},[])
+
+
+
   return (
     <View style={styles.playlist}>
       <View style={styles.bgPlaylist}>
