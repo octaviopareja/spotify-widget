@@ -52,7 +52,35 @@ export default Playlists = ({ playlistsData, onSelectPlaylistPress }) => {
 };
 
 const styles = StyleSheet.create({
-  playlist: { width: "100%", flexDirection: "column" },
+  playlist: {
+    width: "100%",
+    flexDirection: "column",
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    height: 300,
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+  },
   bgPlaylist: {
     backgroundColor: "#AFCFD2",
     width: "100%",

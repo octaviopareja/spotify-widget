@@ -17,7 +17,6 @@ export default function Tracklist({ selectedPlaylistData }) {
                 .url,
             }}
             style={styles.albumCover}
-            // uri: selectedPlaylistData.tracks.items[0].track.album.images[0].url,
           />
         ) : (
           <Image source={spotify} />
@@ -30,7 +29,7 @@ export default function Tracklist({ selectedPlaylistData }) {
         <Text style={styles.artistName}>{artist}</Text>
       </View>
       <View style={styles.columnTime}>
-        <Text style={styles.songDuration}>{time}</Text>
+        <Text style={styles.songDuration}>{convertFromMiliseconds(time)}</Text>
       </View>
     </View>
   );
@@ -41,6 +40,13 @@ export default function Tracklist({ selectedPlaylistData }) {
     artist: track.track.artists[0].name,
     time: track.track.duration_ms,
   }));
+
+  const convertFromMiliseconds = (totalTimeInMiliseconds) => {
+    let remainder = totalTimeInMiliseconds % 60000;
+    let minutes = Math.floor((totalTimeInMiliseconds - remainder) / 60000);
+    let seconds = Math.floor(remainder / 1000);
+    return `${minutes}:${seconds}`;
+  };
 
   return (
     <View style={styles.playlist}>
@@ -130,6 +136,31 @@ const styles = StyleSheet.create({
   mainPlaylist: {
     width: "100%",
     flexDirection: "row",
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    height: 300,
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
   },
   imgPlaylist: { paddingRight: 15 },
   titlePlaylist: { fontSize: 22, fontWeight: "bold", color: "white" },
@@ -143,6 +174,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     paddingVertical: 13,
+    alignItems: "center",
   },
   columnTitles: {
     width: "100%",
