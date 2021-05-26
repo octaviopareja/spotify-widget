@@ -5,7 +5,7 @@ import url from "../../config/endpoints_config";
 import token from "../../config/token";
 import Playlists from "../Playlists/Playlists";
 import Tracklist from "../Tracklist/Tracklist";
-import { View, Text } from "react-native";
+import { ActivityIndicator, View, Text, StyleSheet } from "react-native";
 
 const Main = () => {
   const [userData, setUserData] = useState({});
@@ -90,7 +90,11 @@ const Main = () => {
   return (
     <View>
       {loading ? (
-        <Text>Loading</Text>
+        <View style={styles.containerLoading}>
+          <ActivityIndicator />
+          <ActivityIndicator size="large" color="#AFCFD2" />
+          <Text styles={styles.textLoading}>Loading</Text>
+        </View>
       ) : (
         <>
           {!workoutPlaylistIsSelected ? (
@@ -107,7 +111,11 @@ const Main = () => {
                   )}
                 </>
               ) : (
-                <Text>Loading Playlists</Text>
+                <View style={styles.containerLoading}>
+                  <ActivityIndicator />
+                  <ActivityIndicator size="large" color="#AFCFD2" />
+                  <Text styles={styles.textLoading}>Loading Playlists</Text>
+                </View>
               )}
             </>
           ) : (
@@ -117,7 +125,11 @@ const Main = () => {
                   selectedPlaylistData={selectedPlaylistData}
                 ></Tracklist>
               ) : (
-                <Text>Loading Tracklist</Text>
+                <View style={styles.containerLoading}>
+                  <ActivityIndicator />
+                  <ActivityIndicator size="large" color="#AFCFD2" />
+                  <Text styles={styles.textLoading}>Loading Tracklist</Text>
+                </View>
               )}
             </>
           )}
@@ -126,5 +138,10 @@ const Main = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  containerLoading: { flex: 1, justifyContent: "center" },
+  textLoading: { fontSize: 18, color: "#AFCFD2", paddingTop: 15 },
+});
 
 export default Main;
