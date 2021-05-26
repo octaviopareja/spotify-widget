@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     //
     //
     //
-    height: 300,
+    // height: "50%",
     //
     //
     //
