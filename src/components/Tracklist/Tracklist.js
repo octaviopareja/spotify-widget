@@ -2,77 +2,69 @@ import React, { useEffect, useState } from "react";
 
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 
-const spotify = require("../../../assets/spotify.jpg");
-
-
-
-const Item = ({ source, title, artist, time }) => (
-  <View style={styles.itemPlaylist}>
-    <View style={styles.columnSource}>
-      <Image
-        source={require("../../../assets/albumImage.jpg")}
-        style={styles.albumCover}
-      />
+export default function Tracklist({ selectedPlaylistData }) {
+  const renderItem = ({ item }) => (
+    <Item title={item.title} artist={item.artist} time={item.time} />
+  );
+  const spotify = require("../../../assets/spotify.jpg");
+  const Item = ({ title, artist, time }) => (
+    <View style={styles.itemPlaylist}>
+      <View style={styles.columnSource}>
+        {selectedPlaylistData !== {} ? (
+          <Image
+            source={{
+              uri: selectedPlaylistData.tracks.items[0].track.album.images[0]
+                .url,
+            }}
+            style={styles.albumCover}
+            // uri: selectedPlaylistData.tracks.items[0].track.album.images[0].url,
+          />
+        ) : (
+          <Image source={spotify} />
+        )}
+      </View>
+      <View style={styles.columnTitle}>
+        <Text style={styles.songTitle}>{title}</Text>
+      </View>
+      <View style={styles.columnArtist}>
+        <Text style={styles.artistName}>{artist}</Text>
+      </View>
+      <View style={styles.columnTime}>
+        <Text style={styles.songDuration}>{time}</Text>
+      </View>
     </View>
-    <View style={styles.columnTitle}>
-      <Text style={styles.songTitle}>{title}</Text>
-    </View>
-    <View style={styles.columnArtist}>
-      <Text style={styles.artistName}>{artist}</Text>
-    </View>
-    <View style={styles.columnTime}>
-      <Text style={styles.songDuration}>{time}</Text>
-    </View>
-  </View>
-);
+  );
 
-const renderItem = ({ item }) => (
-  <Item title={item.title} artist={item.artist} time={item.time} />
-);
-
-export default function Playlist( {userData, userPlaylists}) {
-
-  const [info, setInfo] = useState([])
-// [
-//   {
-//     id: "1",
-//     title: "First Item",
-//     artist: "Bellah",
-//     time: "2:55",
-//   },{
-//     id: "2",
-//     title: "Second Item",
-//     artist: "Bellah",
-//     time: "2:55",
-//   },{
-//     id: "3",
-//     title: "Third Item",
-//     artist: "Bellah",
-//     time: "2:55",
-//   },{
-//     id: "4",
-//     title: "Third Item",
-//     artist: "Bellah",
-//     time: "2:55",
-//   },
-// ];
-useEffect(() => {
-  setInfo()
-},[])
-
-
+  const info = selectedPlaylistData.tracks.items.map((track) => ({
+    id: track.track.id,
+    title: track.track.name,
+    artist: track.track.artists[0].name,
+    time: track.track.duration_ms,
+  }));
 
   return (
     <View style={styles.playlist}>
       <View style={styles.bgPlaylist}>
         <View style={styles.headerPlaylist}>
           <View style={styles.imgPlaylist}>
-            <Image source={spotify} />
+            <Image
+              style={{ height: 74, width: 74 }}
+              source={{
+                uri: selectedPlaylistData.images[0].url,
+              }}
+            />
           </View>
           <View style={styles.textPlaylist}>
-            <Text style={styles.titlePlaylist}>Workout Hits</Text>
+            <Text style={styles.titlePlaylist}>
+              {selectedPlaylistData.name}
+            </Text>
             <View style={styles.textPlaylist}>
-              <Text style={styles.dataPlaylist}>25 Songs - 1h 21 Minutes</Text>
+              <Text style={styles.dataPlaylist}>
+                {selectedPlaylistData.tracks.items.length}{" "}
+                {selectedPlaylistData.tracks.items.length === 1
+                  ? "song"
+                  : "songs"}
+              </Text>
             </View>
           </View>
         </View>
@@ -97,13 +89,13 @@ useEffect(() => {
         </View>
       </View>
 
-      <View style={styles.bgMoreInfo}>
+      {/* <View style={styles.bgMoreInfo}>
         <Text style={styles.seeMore}>See More</Text>
         <Image
           style={styles.iconNext}
           source={require("../../../assets/arrowNext.jpg")}
         />
-      </View>
+      </View> */}
     </View>
   );
 }
